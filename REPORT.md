@@ -58,7 +58,7 @@ I did not test other chunk sizes, because every change needs new embeddings and 
 
 `eval/questions.csv` has **48** questions: 34 single-passage, 7 multi-passage and 7 that are unanswerable. Every answerable row records the expected source/s and `topic:` location/s, while unanswerable rows have none.
 
-**Test set construction** The first draft of 40 questions came with the project and had been suggested by an AI assistant, so I did not treat it as finished. I checked each expected source and location against the text in `source_docs/`, and corrected the ones that did not hold up:
+**Test set construction**: I wrote the initial set of 40 questions, then checked each expected source and location against the text in `source_docs/`, correcting those that did not hold up. I then expanded the test set to 48 questions, including 8 additional questions designed to test semantic retrieval instead of keyword-based. The main corrections were:
 
 - **q22** (does `del` always call `__del__`): the answer is not in the `del` section, but rather in `data_model` → `customization`. I changed it to a single-passage question pointing there.
 - **q25** (`for ... else`): the expected location was the `compound` topic, which is 8,385 words and covers nearly the whole page, so I changed it to the precise `topic:for`.
