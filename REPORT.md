@@ -214,6 +214,15 @@ Guardrails:
 1. **Citation validation:** after the model answers, code checks that every `[CITE:id]` was actually shown by a `search` result in this run. An answer with unknown ids or with no citation (besides the exact refusal sentence) is replaced by the standard refusal, and the reason why is recorded (`invalid_citations` or `missing_citations`).
 2. **Search budget:** at most 4 `search` calls per question, and a recursion limit of 20 steps. If the model keeps calling tools and hits the limit, the question is recorded as `agent_error: recursion_limit`, and treated as a refusal instead of crashing the run.
 3. **Approval:** `add_document` needs a typed `yes` at the terminal — if left unattended, it's always denied. The server also restricts files to `incoming/` and the allowed types.
+    - **Approval gate check.** I asked the agent to call `add_document` on `incoming/pdb_reference.md` and typed `no` at the `[yes/NO]` prompt. The model made the call and the harness blocked it. The trace records:
+
+      ```json
+      [{"tool": "add_document", "path": "incoming/pdb_reference.md", "blocked": "approval_denied"}]
+      ```
+
+      The model's raw reply was: "Permission for `add_document` was denied by the harness. Explicit terminal approval is required." Nothing was indexed or embedded, and `git status` showed no change to `index/corpus.sqlite3` (hash `f6f44f0`).
+
+      One side effect is that the model's "permission denied" message has no citation tag, so `validate_answer` replaces it with the standard refusal message, and so the user never sees why it was denied to begin with.
 
 The 18 tests (`uv run python -m unittest discover -s tests`) cover, among other things, that unknown ids fire `invalid_citations` and that uncited answers fire `missing_citations`.
 
