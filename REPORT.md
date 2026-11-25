@@ -1,7 +1,7 @@
 # Assignment 3 Report — auditable Python 3.13 documentation assistant
 
-- **Name**:
-- **Student ID**:
+- **Name**: Gonzalo Domínguez
+- **Student ID**: 18691
 - **Group**: BBADBA 5B
 
 ## Use case
