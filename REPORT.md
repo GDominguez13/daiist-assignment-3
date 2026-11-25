@@ -64,7 +64,7 @@ I did not test other chunk sizes, because every change needs new embeddings and 
 - **q25** (`for ... else`): the expected location was the `compound` topic, which is 8,385 words and covers nearly the whole page, so I changed it to the precise `topic:for`.
 - **q31** (walrus operator in `if`): the `assignment-expressions` section alone answers it, so I relabelled it single-passage.
 - **q32** (`yield` vs `return` in a generator): the expected `function` section never mentions generators, so I changed it to `topic:yield` and `topic:return`.
-
+git 
 **Unanswerable questions.** q34 asks what the `pdb` command `until` does — the base corpus has no debugger page, and thus is the target of the add-document experiment. The original draft also had 3 clearly off-topic unanswerable questions (about NumPy, hardware timing and Windows), which make refusal way too easy. I replaced them with questions close to the corpus's topic but outside it: 
 - **q35**, "What `__eq__` and `__hash__` does the `@dataclass` decorator generate in Python 3.13?"
 - **q36**, "Is `counter += 1` on a shared variable atomic under the GIL in Python 3.13?"
